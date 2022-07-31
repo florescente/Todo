@@ -54,7 +54,7 @@ function Table() {
         New Task
       </button>
       {tasks.map((task: any) => (
-        <div>
+        <div key={task.id}>
           <h1>Nome: {task.name}</h1>
           <h1>Body: {task.body}</h1>
           <button
