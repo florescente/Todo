@@ -6,6 +6,8 @@ import {
 } from 'firebase/auth'
 import React from 'react'
 import { auth } from './firebase-config'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 function Home() {
   const [registerEmail, setRegisterEmail] = React.useState('')
@@ -31,48 +33,70 @@ function Home() {
     await signOut(auth)
   }
   return (
-    <div>
-      <div>
+    <div className="container">
+      <Form>
         <h1>Register User</h1>
-        <input
-          placeholder="email"
-          onChange={(e) => {
-            setRegisterEmail(e.target.value)
-          }}
-        />
-        <input
-          placeholder="password"
-          onChange={(e) => {
-            setRegisterPassword(e.target.value)
-          }}
-        />
-        <button type="button" onClick={register}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(e) => {
+              setRegisterEmail(e.target.value)
+            }}
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setRegisterPassword(e.target.value)
+            }}
+          />
+        </Form.Group>
+        <Button type="button" onClick={register}>
           Create user
-        </button>
-      </div>
-      <div>
+        </Button>
+      </Form>
+      <Form>
         <h1>Login</h1>
-        <input
-          placeholder="email"
-          onChange={(e) => {
-            setLoginEmail(e.target.value)
-          }}
-        />
-        <input
-          placeholder="password"
-          onChange={(e) => {
-            setLoginPassword(e.target.value)
-          }}
-        />
-        <button type="button" onClick={login}>
+        <Form.Group className="mb-3" controlId="formLoginEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(e) => {
+              setLoginEmail(e.target.value)
+            }}
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formLoginPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setLoginPassword(e.target.value)
+            }}
+          />
+        </Form.Group>
+        <Button type="button" onClick={login}>
           Login
-        </button>
-      </div>
+        </Button>
+      </Form>
       <h2>User logged in:</h2>
       {User ? User.email : 'Not Logged In'}
-      <button type="button" onClick={logout}>
+      <Button type="button" onClick={logout}>
         Sign out
-      </button>
+      </Button>
     </div>
   )
 }
