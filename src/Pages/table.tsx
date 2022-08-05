@@ -7,7 +7,7 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import React from 'react'
-import db from './firebase-config'
+import db from '../firebase-config'
 
 function Table() {
   const [newName, setNewName] = React.useState('')
