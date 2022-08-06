@@ -1,50 +1,59 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import React from 'react'
 import { auth } from '../firebase-config'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/esm/Container'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import React from 'react'
+
+type Inputs = {
+  email: string
+  password: string
+}
 
 function SignIn() {
-  const [loginEmail, setLoginEmail] = React.useState('')
-  const [loginPassword, setLoginPassword] = React.useState('')
+  const [error, setError] = React.useState<any>(null)
 
-  const login = async () => {
-    await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+  const { register, handleSubmit } = useForm<Inputs>()
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password)
+    } catch (err) {
+      console.log(err)
+      setError(err)
+    }
   }
+
   return (
     <Container
       className="d-flex flex-column align-items-center justify-content-center"
       style={{ height: 'calc(100vh - 56px)' }}
     >
-      <Form className="w-100" style={{ maxWidth: '400px' }}>
+      <Form
+        className="w-100"
+        style={{ maxWidth: '400px' }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h1>Login</h1>
         <Form.Group className="mb-3" controlId="formLoginEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
-            onChange={(e) => {
-              setLoginEmail(e.target.value)
-            }}
+            {...register('email', { required: true })}
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formLoginPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
-            onChange={(e) => {
-              setLoginPassword(e.target.value)
-            }}
+            {...register('password', { required: true })}
           />
+          <Form.Text className="text-muted">{error && error.message}</Form.Text>
         </Form.Group>
-        <Button type="button" onClick={login}>
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
       </Form>
     </Container>
   )
