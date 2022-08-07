@@ -7,12 +7,14 @@ import { signin } from '../redux/authSlice'
 interface User {
   auth: {
     currentUser: boolean
+    email: string | null | undefined
   }
 }
 
 function Home() {
   const dispatch = useDispatch()
   const user = useSelector((state: User) => state.auth.currentUser)
+  const email = useSelector((state: User) => state.auth.email)
 
   const logout = async () => {
     await signOut(auth)
@@ -21,7 +23,7 @@ function Home() {
   return (
     <div className="container">
       <h2>User logged in:</h2>
-      {user ? 'Logged In' : 'Not Logged In'}
+      {user ? `Logged In: ${email}` : 'Not Logged In'}
       <Button type="button" onClick={logout}>
         Sign out
       </Button>
