@@ -10,13 +10,14 @@ import React from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase-config'
 import { useDispatch } from 'react-redux'
-import { signin } from './redux/authSlice'
+import { getUser, signin } from './redux/authSlice'
 
 function App() {
   const dispatch = useDispatch()
   React.useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       dispatch(signin(!!currentUser))
+      dispatch(getUser(currentUser?.email))
     })
   }, [])
   return (
