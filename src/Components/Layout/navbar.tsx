@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/esm/Container'
 import Nav from 'react-bootstrap/esm/Nav'
 import Navbar from 'react-bootstrap/esm/Navbar'
 import { Link } from 'react-router-dom'
+import Account from './account'
 
 function NavBar() {
   return (
@@ -21,14 +22,7 @@ function NavBar() {
             Redux
           </Nav.Link>
         </Nav>
-        <Nav className="justify-content-end">
-          <Nav.Link to="/signin" as={Link}>
-            Sign In
-          </Nav.Link>
-          <Nav.Link to="/signup" as={Link}>
-            Sign Up
-          </Nav.Link>
-        </Nav>
+        <Account />
       </Container>
     </Navbar>
   )
