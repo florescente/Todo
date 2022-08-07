@@ -11,6 +11,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase-config'
 import { useDispatch } from 'react-redux'
 import { getUser, signin } from './redux/authSlice'
+import PrivateRoute from './Components/PrivateRoute'
 
 function App() {
   const dispatch = useDispatch()
@@ -25,8 +26,10 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/table" element={<Table />} />
-        <Route path="/redux" element={<Redux />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/table" element={<Table />} />
+          <Route path="/redux" element={<Redux />} />
+        </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
