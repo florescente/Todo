@@ -4,6 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 const initialState = {
   currentUser: false,
   email: '',
+  id: '',
 }
 
 interface initialProps {
@@ -24,9 +25,12 @@ export const authSlice = createSlice({
     ) => {
       state.email = action.payload
     },
+    getId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload
+    },
   },
 })
 
-export const { signin, getUser } = authSlice.actions
+export const { signin, getUser, getId } = authSlice.actions
 
 export default authSlice.reducer

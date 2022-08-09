@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/esm/Container'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { getUser, signin } from '../redux/authSlice'
+import { getId, getUser, signin } from '../redux/authSlice'
 
 type Inputs = {
   email: string
@@ -22,7 +22,12 @@ function SignIn() {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password)
+      await signInWithEmailAndPassword(auth, data.email, data.password).then(
+        (UserCredential) => {
+          const user = UserCredential.user.uid
+          dispatch(getId(user))
+        }
+      )
       dispatch(signin(true))
       dispatch(getUser(data.email))
     } catch (err) {

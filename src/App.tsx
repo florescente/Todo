@@ -10,7 +10,7 @@ import React from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase-config'
 import { useDispatch } from 'react-redux'
-import { getUser, signin } from './redux/authSlice'
+import { getId, getUser, signin } from './redux/authSlice'
 import PrivateRoute from './Components/PrivateRoute'
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
     onAuthStateChanged(auth, (currentUser) => {
       dispatch(signin(!!currentUser))
       dispatch(getUser(currentUser?.email))
+      dispatch(getId(currentUser?.uid))
     })
   }, [])
   return (

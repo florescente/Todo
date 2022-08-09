@@ -61,22 +61,24 @@ function Home() {
             {...register('name', { required: true })}
           />
         </Form.Group>
-        <Button type="submit">Login</Button>
+        <Button type="submit">Create</Button>
       </Form>
       <Table striped hover className="my-5">
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
             <th>Done</th>
+            <th>Name</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {tasks?.map((task: TaskProps, index) => (
             <tr key={task.id}>
               <td>{index}</td>
-              <td>{task.name}</td>
               <td>{task.checked?.toString()}</td>
+              <td>{task.name}</td>
+              <td>del</td>
             </tr>
           ))}
         </tbody>
