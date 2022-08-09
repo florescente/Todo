@@ -1,11 +1,11 @@
-import { collection, getDocs } from 'firebase/firestore'
+import { addDoc, collection, getDocs } from 'firebase/firestore'
 import React from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Table from 'react-bootstrap/esm/Table'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import db from '../firebase-config'
-import { readTask } from '../redux/taskSlice'
+import { readTask, createTask } from '../redux/taskSlice'
 
 interface TaskProps {
   checked?: boolean
@@ -46,7 +46,17 @@ function Home() {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data.name)
-    //try firestore create and dispatch action or show error
+    try {
+      await addDoc(docRef, { name: data.name, checked: false }).then(
+        (onfulfilled) => {
+          dispatch(
+            createTask({ name: data.name, checked: false, id: onfulfilled.id })
+          )
+        }
+      )
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -78,7 +88,7 @@ function Home() {
               <td>{index}</td>
               <td>{task.checked?.toString()}</td>
               <td>{task.name}</td>
-              <td>del</td>
+              <td>{task.id}</td>
             </tr>
           ))}
         </tbody>

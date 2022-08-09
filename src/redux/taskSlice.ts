@@ -18,7 +18,9 @@ export const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    createTask: (state: initialProps) => {},
+    createTask: (state: initialProps, action: PayloadAction<TaskProps>) => {
+      state.tasks = [...state.tasks, action.payload]
+    },
     readTask: (state: initialProps, action: PayloadAction<TaskProps[]>) => {
       state.tasks = action.payload
     },
@@ -27,6 +29,6 @@ export const taskSlice = createSlice({
   },
 })
 
-export const { readTask } = taskSlice.actions
+export const { createTask, readTask } = taskSlice.actions
 
 export default taskSlice.reducer
