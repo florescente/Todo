@@ -4,12 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 const initialState = {
   currentUser: false,
   email: '',
-  id: '',
+  id: 'bah',
 }
 
 interface initialProps {
   currentUser: boolean
   email: string | null | undefined
+  id: string | undefined
 }
 
 export const authSlice = createSlice({
@@ -25,7 +26,7 @@ export const authSlice = createSlice({
     ) => {
       state.email = action.payload
     },
-    getId: (state, action: PayloadAction<string>) => {
+    getId: (state: initialProps, action: PayloadAction<string | undefined>) => {
       state.id = action.payload
     },
   },

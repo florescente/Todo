@@ -23,10 +23,18 @@ type Inputs = {
   name: string
 }
 
+type User = {
+  auth: {
+    id: string
+  }
+}
+
 function Home() {
   const dispatch = useDispatch()
 
-  const docRef = collection(db, 'testes', 'mK9SoJrefIULa5zhSK0n', 'teste')
+  const user = useSelector((state: User) => state.auth.id)
+
+  const docRef = collection(db, 'testes', user, 'teste')
 
   React.useEffect(() => {
     const getTasks = async () => {
@@ -38,7 +46,7 @@ function Home() {
       dispatch(readTask(tasks))
     }
     getTasks()
-  }, [])
+  }, [user])
 
   const tasks = useSelector((state: TasksProps) => state.task.tasks)
 
@@ -50,7 +58,11 @@ function Home() {
       await addDoc(docRef, { name: data.name, checked: false }).then(
         (onfulfilled) => {
           dispatch(
-            createTask({ name: data.name, checked: false, id: onfulfilled.id })
+            createTask({
+              name: data.name,
+              checked: false,
+              id: onfulfilled.id,
+            })
           )
         }
       )
