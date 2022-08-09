@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
-  tasks: [
-    { name: 'name', checked: true },
-    { name: 'nome', checked: false },
-  ],
+  tasks: [],
 }
 
 interface TaskProps {
-  checked: boolean
-  name: string
+  checked?: boolean
+  name?: string
+  id: string
 }
 
 interface initialProps {
@@ -20,9 +18,12 @@ export const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
+    createTask: (state: initialProps) => {},
     readTask: (state: initialProps, action: PayloadAction<TaskProps[]>) => {
       state.tasks = action.payload
     },
+    updateTask: (state: initialProps) => {},
+    deleteTask: (state: initialProps) => {},
   },
 })
 
