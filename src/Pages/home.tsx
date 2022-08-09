@@ -1,11 +1,19 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from 'firebase/firestore'
 import React from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Spinner } from 'react-bootstrap'
 import Table from 'react-bootstrap/esm/Table'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import db from '../firebase-config'
 import { readTask, createTask } from '../redux/taskSlice'
+import { BsTrash } from 'react-icons/bs'
 
 interface TaskProps {
   checked?: boolean
@@ -35,6 +43,18 @@ function Home() {
   const user = useSelector((state: User) => state.auth.id)
 
   const docRef = collection(db, 'testes', user, 'teste')
+
+  const updateTasks = async (id: string, value: boolean) => {
+    const taskDoc = doc(db, 'testes', user, 'teste', id)
+    await updateDoc(taskDoc, { checked: value })
+    //dispatch
+  }
+
+  const deleteTasks = async (id: string) => {
+    const taskDoc = doc(db, 'testes', user, 'teste', id)
+    await deleteDoc(taskDoc)
+    //dispatch
+  }
 
   React.useEffect(() => {
     const getTasks = async () => {
@@ -71,6 +91,13 @@ function Home() {
     }
   }
 
+  if (user === 'bah') {
+    return (
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    )
+  }
   return (
     <div className="container">
       <Form
@@ -88,19 +115,29 @@ function Home() {
       <Table striped hover className="my-5">
         <thead>
           <tr>
-            <th>#</th>
             <th>Done</th>
             <th>Name</th>
-            <th>Delete</th>
+            <th>id</th>
+            <th>del</th>
           </tr>
         </thead>
         <tbody>
-          {tasks?.map((task: TaskProps, index) => (
+          {tasks?.map((task: TaskProps) => (
             <tr key={task.id}>
-              <td>{index}</td>
-              <td>{task.checked?.toString()}</td>
+              <td>
+                <Form.Check
+                  type="checkbox"
+                  defaultChecked={task.checked}
+                  onChange={() => updateTasks(task.id, !task.checked)}
+                />
+              </td>
               <td>{task.name}</td>
               <td>{task.id}</td>
+              <td>
+                <Button type="button" onClick={() => deleteTasks(task.id)}>
+                  <BsTrash />
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
