@@ -116,7 +116,7 @@ function Home() {
             <th>Done</th>
             <th>Name</th>
             <th>id</th>
-            <th>del</th>
+            <th>delete</th>
           </tr>
         </thead>
         <tbody>
@@ -132,7 +132,12 @@ function Home() {
               <td>{task.name}</td>
               <td>{task.id}</td>
               <td>
-                <Button type="button" onClick={() => deleteTasks(task.id)}>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline-danger"
+                  onClick={() => deleteTasks(task.id)}
+                >
                   <BsTrash />
                 </Button>
               </td>
