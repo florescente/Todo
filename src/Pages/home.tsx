@@ -42,15 +42,15 @@ function Home() {
 
   const user = useSelector((state: User) => state.auth.id)
 
-  const docRef = collection(db, 'testes', user, 'teste')
+  const docRef = collection(db, 'users', user, 'tasks')
 
   const updateTasks = async (id: string, value: boolean) => {
-    const taskDoc = doc(db, 'testes', user, 'teste', id)
+    const taskDoc = doc(db, 'users', user, 'tasks', id)
     await updateDoc(taskDoc, { checked: value })
   }
 
   const deleteTasks = async (id: string) => {
-    const taskDoc = doc(db, 'testes', user, 'teste', id)
+    const taskDoc = doc(db, 'users', user, 'tasks', id)
     await deleteDoc(taskDoc)
     dispatch(deleteTask(id))
   }

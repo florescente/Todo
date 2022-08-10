@@ -15,12 +15,6 @@ function NavBar() {
           <Nav.Link to="/" as={Link}>
             Home
           </Nav.Link>
-          <Nav.Link to="/table" as={Link}>
-            Table
-          </Nav.Link>
-          <Nav.Link to="/redux" as={Link}>
-            Redux
-          </Nav.Link>
         </Nav>
         <Account />
       </Container>

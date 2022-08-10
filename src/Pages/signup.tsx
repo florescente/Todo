@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getId, getUser, signin } from '../redux/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 type Inputs = {
   email: string
@@ -14,6 +15,8 @@ type Inputs = {
 }
 
 function SignUp() {
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
 
   const [error, setError] = React.useState<any>(null)
@@ -32,6 +35,7 @@ function SignUp() {
       })
       dispatch(signin(true))
       dispatch(getUser(data.email))
+      navigate('/')
     } catch (err) {
       console.log(err)
       setError(err)
