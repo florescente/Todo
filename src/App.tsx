@@ -15,21 +15,24 @@ import AuthRoute from './Components/AuthRoute'
 function App() {
   const dispatch = useDispatch()
 
+  const [isLoading, setIsLoading] = React.useState(true)
+
   React.useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       dispatch(signin(!!currentUser))
       dispatch(getUser(currentUser?.email))
       dispatch(getId(currentUser?.uid))
+      setIsLoading(false)
     })
   }, [])
   return (
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route element={<PrivateRoute />}>
+        <Route element={<PrivateRoute loading={isLoading} />}>
           <Route path="/" element={<Home />} />
         </Route>
-        <Route element={<AuthRoute />}>
+        <Route element={<AuthRoute loading={isLoading} />}>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>
