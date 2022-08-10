@@ -12,7 +12,7 @@ import Table from 'react-bootstrap/esm/Table'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import db from '../firebase-config'
-import { readTask, createTask } from '../redux/taskSlice'
+import { readTask, createTask, deleteTask } from '../redux/taskSlice'
 import { BsTrash } from 'react-icons/bs'
 
 interface TaskProps {
@@ -47,13 +47,12 @@ function Home() {
   const updateTasks = async (id: string, value: boolean) => {
     const taskDoc = doc(db, 'testes', user, 'teste', id)
     await updateDoc(taskDoc, { checked: value })
-    //dispatch
   }
 
   const deleteTasks = async (id: string) => {
     const taskDoc = doc(db, 'testes', user, 'teste', id)
     await deleteDoc(taskDoc)
-    //dispatch
+    dispatch(deleteTask(id))
   }
 
   React.useEffect(() => {
@@ -73,7 +72,6 @@ function Home() {
   const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data.name)
     try {
       await addDoc(docRef, { name: data.name, checked: false }).then(
         (onfulfilled) => {
@@ -128,7 +126,7 @@ function Home() {
                 <Form.Check
                   type="checkbox"
                   defaultChecked={task.checked}
-                  onChange={() => updateTasks(task.id, !task.checked)}
+                  onChange={(e) => updateTasks(task.id, e.target.checked)}
                 />
               </td>
               <td>{task.name}</td>

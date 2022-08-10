@@ -24,11 +24,12 @@ export const taskSlice = createSlice({
     readTask: (state: initialProps, action: PayloadAction<TaskProps[]>) => {
       state.tasks = action.payload
     },
-    updateTask: (state: initialProps) => {},
-    deleteTask: (state: initialProps) => {},
+    deleteTask: (state: initialProps, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((value) => value.id !== action.payload)
+    },
   },
 })
 
-export const { createTask, readTask } = taskSlice.actions
+export const { createTask, readTask, deleteTask } = taskSlice.actions
 
 export default taskSlice.reducer
