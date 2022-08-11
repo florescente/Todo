@@ -119,7 +119,7 @@ function Home() {
         </Form.Group>
         <Button type="submit">Create</Button>
       </Form>
-      <Table striped hover className="my-5">
+      <Table striped hover className="my-5 mw-100">
         <thead>
           <tr>
             <th>Done</th>
