@@ -13,7 +13,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import db from '../firebase-config'
 import { readTask, createTask, deleteTask } from '../redux/taskSlice'
-import { BsTrash } from 'react-icons/bs'
+import { BsCheck2Square, BsTrash } from 'react-icons/bs'
 import { getLoadTasks } from '../redux/authSlice'
 
 interface TaskProps {
@@ -117,43 +117,47 @@ function Home() {
             {...register('name', { required: true })}
           />
         </Form.Group>
-        <Button type="submit">Create</Button>
+        <Button type="submit">New Task</Button>
       </Form>
-      <Table striped hover className="my-5 mw-100">
-        <thead>
-          <tr>
-            <th>Done</th>
-            <th>Name</th>
-            <th>id</th>
-            <th>delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks?.map((task: TaskProps) => (
-            <tr key={task.id}>
-              <td>
-                <Form.Check
-                  type="checkbox"
-                  defaultChecked={task.checked}
-                  onChange={(e) => updateTasks(task.id, e.target.checked)}
-                />
-              </td>
-              <td>{task.name}</td>
-              <td>{task.id}</td>
-              <td>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline-danger"
-                  onClick={() => deleteTasks(task.id)}
-                >
-                  <BsTrash />
-                </Button>
-              </td>
+      <div className="table-responsive">
+        <Table hover className="my-5 mw-100">
+          <thead className="table-primary">
+            <tr>
+              <th className="text-success">
+                <BsCheck2Square />
+              </th>
+              <th>Tasks</th>
+              <th className="text-center">
+                <BsTrash />
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody className="table-group-divider">
+            {tasks?.map((task: TaskProps) => (
+              <tr key={task.id}>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    defaultChecked={task.checked}
+                    onChange={(e) => updateTasks(task.id, e.target.checked)}
+                  />
+                </td>
+                <td className="align-middle">{task.name}</td>
+                <td>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline-danger"
+                    onClick={() => deleteTasks(task.id)}
+                  >
+                    <BsTrash />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   )
 }
