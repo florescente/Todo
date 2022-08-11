@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/esm/Nav'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { auth } from '../../firebase-config'
-import { signin } from '../../redux/authSlice'
+import { getLoadTasks, signin } from '../../redux/authSlice'
 
 interface User {
   auth: {
@@ -22,6 +22,8 @@ function Account() {
   const logout = async () => {
     await signOut(auth)
     dispatch(signin(false))
+    //change loading Tasks to true
+    dispatch(getLoadTasks(true))
   }
 
   if (user) {

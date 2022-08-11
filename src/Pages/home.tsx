@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import db from '../firebase-config'
 import { readTask, createTask, deleteTask } from '../redux/taskSlice'
 import { BsTrash } from 'react-icons/bs'
+import { getLoadTasks } from '../redux/authSlice'
 
 interface TaskProps {
   checked?: boolean
@@ -34,6 +35,7 @@ type Inputs = {
 type User = {
   auth: {
     id: string
+    loadingTasks: boolean
   }
 }
 
@@ -41,6 +43,8 @@ function Home() {
   const dispatch = useDispatch()
 
   const user = useSelector((state: User) => state.auth.id)
+
+  const loadingTasks = useSelector((state: User) => state.auth.loadingTasks)
 
   const docRef = collection(db, 'users', user, 'tasks')
 
@@ -64,7 +68,9 @@ function Home() {
       }))
       dispatch(readTask(tasks))
     }
-    getTasks()
+    getTasks().then(() => {
+      dispatch(getLoadTasks(false))
+    })
   }, [user])
 
   const tasks = useSelector((state: TasksProps) => state.task.tasks)
@@ -89,9 +95,12 @@ function Home() {
     }
   }
 
-  if (user === 'bah') {
+  if (loadingTasks) {
     return (
-      <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div
+        className="container d-flex justify-content-center align-items-center"
+        style={{ height: 'calc(100vh - 56px)' }}
+      >
         <Spinner animation="border" variant="primary" />
       </div>
     )

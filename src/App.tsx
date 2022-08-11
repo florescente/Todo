@@ -8,31 +8,29 @@ import React from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase-config'
 import { useDispatch } from 'react-redux'
-import { getId, getUser, signin } from './redux/authSlice'
+import { getId, getLoad, getUser, signin } from './redux/authSlice'
 import PrivateRoute from './Components/PrivateRoute'
 import AuthRoute from './Components/AuthRoute'
 
 function App() {
   const dispatch = useDispatch()
 
-  const [isLoading, setIsLoading] = React.useState(true)
-
   React.useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       dispatch(signin(!!currentUser))
       dispatch(getUser(currentUser?.email))
       dispatch(getId(currentUser?.uid))
-      setIsLoading(false)
+      dispatch(getLoad(false))
     })
   }, [])
   return (
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route element={<PrivateRoute loading={isLoading} />}>
+        <Route element={<PrivateRoute />}>
           <Route path="/" element={<Home />} />
         </Route>
-        <Route element={<AuthRoute loading={isLoading} />}>
+        <Route element={<AuthRoute />}>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>

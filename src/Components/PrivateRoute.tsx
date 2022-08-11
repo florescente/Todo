@@ -6,11 +6,13 @@ interface User {
   auth: {
     currentUser: boolean
     email: string | null | undefined
+    loading: boolean
   }
 }
 
-function PrivateRoute({ loading }: { loading: boolean }) {
+function PrivateRoute() {
   const user = useSelector((state: User) => state.auth.currentUser)
+  const loading = useSelector((state: User) => state.auth.loading)
 
   if (loading) {
     return (
