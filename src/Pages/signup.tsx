@@ -30,7 +30,7 @@ function SignUp() {
       .string()
       .min(6, 'At least 6 characteres')
       .required('Password is required'),
-    passwordConfimation: yup
+    passwordConfirmation: yup
       .string()
       .oneOf([yup.ref('password'), null], "Passwords don't match")
       .required(),
