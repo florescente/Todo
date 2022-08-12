@@ -14,6 +14,7 @@ import * as yup from 'yup'
 type Inputs = {
   email: string
   password: string
+  passwordConfirmation: string
 }
 
 function SignUp() {
@@ -29,6 +30,10 @@ function SignUp() {
       .string()
       .min(6, 'At least 6 characteres')
       .required('Password is required'),
+    passwordConfimation: yup
+      .string()
+      .oneOf([yup.ref('password'), null], "Passwords don't match")
+      .required(),
   })
 
   const {
@@ -87,11 +92,23 @@ function SignUp() {
             type="password"
             placeholder="Password"
             autoComplete="true"
-            {...register('password', { required: true })}
+            {...register('password')}
           />
           <Form.Text className="text-muted">
-            {errors && errors.password
-              ? errors.password?.message
+            {errors && errors.password?.message}
+          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formConfirmPassword">
+          <Form.Label>Password Confirmation</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            autoComplete="true"
+            {...register('passwordConfirmation')}
+          />
+          <Form.Text className="text-muted">
+            {errors && errors.passwordConfirmation
+              ? errors.passwordConfirmation?.message
               : error && error.message}
           </Form.Text>
         </Form.Group>
