@@ -1,0 +1,25 @@
+{
+  "translation": {
+    "createTask": "Nova Tarefa",
+    "taskName": "Nome da Tarefa",
+    "tasks": "Tarefas",
+    "emailRequired": "Email é obrigatório",
+    "minimumCharacteres": "Pelo menos 6 caracteres",
+    "passwordRequired": "Senha é obrigatória",
+    "login": "Conecte-se",
+    "emailAddress": "Endereço de Email",
+    "enterEmail": "Coloque Email",
+    "password": "Senha",
+    "submit": "Entrar",
+    "passwordMatch": "Senhas Diferentes",
+    "confirmationrequired": "Confirmação é obrigatória",
+    "register": "Registre-se",
+    "passwordConfirmation": "Confirmar Senha",
+    "passwordConfirmationTwo": "Confirme Senha",
+    "createUser": "Criar",
+    "signout": "Sair",
+    "signin": "Entrar",
+    "signup": "Registrar",
+    "home": "Início"
+  }
+}

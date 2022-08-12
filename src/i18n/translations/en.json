@@ -1,0 +1,25 @@
+{
+  "translation": {
+    "createTask": "New Task",
+    "taskName": "Task Name",
+    "tasks": "Tasks",
+    "emailRequired": "Email is required",
+    "minimumCharacteres": "At least 6 characteres",
+    "passwordRequired": "Password is required",
+    "login": "Login",
+    "emailAddress": "Email Address",
+    "enterEmail": "Enter Email",
+    "password": "Password",
+    "submit": "Ok",
+    "passwordMatch": "Passwords don't match",
+    "confirmationrequired": "Confirmation is required",
+    "register": "Register User",
+    "passwordConfirmation": "Password Confirmation",
+    "passwordConfirmationTwo": "Confirm Password",
+    "createUser": "Create",
+    "signout": "Sign out",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "home": "Home"
+  }
+}

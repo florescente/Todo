@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth'
 import Button from 'react-bootstrap/esm/Button'
 import Nav from 'react-bootstrap/esm/Nav'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { auth } from '../../firebase-config'
@@ -14,6 +15,8 @@ interface User {
 }
 
 function Account() {
+  const { t } = useTranslation()
+
   const dispatch = useDispatch()
 
   const user = useSelector((state: User) => state.auth.currentUser)
@@ -22,7 +25,6 @@ function Account() {
   const logout = async () => {
     await signOut(auth)
     dispatch(signin(false))
-    //change loading Tasks to true
     dispatch(getLoadTasks(true))
   }
 
@@ -31,7 +33,7 @@ function Account() {
       <Nav className="justify-content-end">
         <Nav.Link disabled>{email}</Nav.Link>
         <Button type="button" onClick={logout}>
-          Sign out
+          {t('signout')}
         </Button>
       </Nav>
     )
@@ -39,10 +41,10 @@ function Account() {
     return (
       <Nav className="justify-content-end">
         <Nav.Link to="/signin" as={Link}>
-          Sign In
+          {t('signin')}
         </Nav.Link>
         <Nav.Link to="/signup" as={Link}>
-          Sign Up
+          {t('signup')}
         </Nav.Link>
       </Nav>
     )

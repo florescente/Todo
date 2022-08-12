@@ -17,6 +17,7 @@ import { BsCheck2Square, BsTrash } from 'react-icons/bs'
 import { getLoadTasks } from '../redux/authSlice'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { useTranslation } from 'react-i18next'
 
 interface TaskProps {
   checked?: boolean
@@ -42,6 +43,8 @@ type User = {
 }
 
 function Home() {
+  const { t } = useTranslation()
+
   const dispatch = useDispatch()
 
   const user = useSelector((state: User) => state.auth.id)
@@ -121,9 +124,9 @@ function Home() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Form.Group controlId="formCreateName">
-          <Form.Control placeholder="Task Name" {...register('name')} />
+          <Form.Control placeholder={t('taskName')} {...register('name')} />
         </Form.Group>
-        <Button type="submit">New Task</Button>
+        <Button type="submit">{t('createTask')}</Button>
       </Form>
       <div className="table-responsive">
         <Table hover className="my-5 mw-100">
@@ -132,7 +135,7 @@ function Home() {
               <th className="text-success">
                 <BsCheck2Square />
               </th>
-              <th>Tasks</th>
+              <th>{t('tasks')}</th>
               <th className="text-center">
                 <BsTrash />
               </th>

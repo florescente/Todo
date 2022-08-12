@@ -10,6 +10,7 @@ import { getId, getUser, signin } from '../redux/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { useTranslation } from 'react-i18next'
 
 type Inputs = {
   email: string
@@ -18,6 +19,8 @@ type Inputs = {
 }
 
 function SignUp() {
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -25,15 +28,15 @@ function SignUp() {
   const [error, setError] = React.useState<any>(null)
 
   const schema = yup.object().shape({
-    email: yup.string().email().required('Email is required'),
+    email: yup.string().email().required(t('emailRequired')),
     password: yup
       .string()
-      .min(6, 'At least 6 characteres')
-      .required('Password is required'),
+      .min(6, t('minimumCharacteres'))
+      .required(t('passwordRequired')),
     passwordConfirmation: yup
       .string()
-      .oneOf([yup.ref('password'), null], "Passwords don't match")
-      .required(),
+      .oneOf([yup.ref('password'), null], t('passwordMatch'))
+      .required(t('confirmationrequired')),
   })
 
   const {
@@ -74,12 +77,12 @@ function SignUp() {
         style={{ maxWidth: '400px' }}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1>Register User</h1>
+        <h1>{t('register')}</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>{t('emailAddress')}</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder={t('enterEmail')}
             {...register('email')}
           />
           <Form.Text className="text-muted">
@@ -87,10 +90,10 @@ function SignUp() {
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>{t('password')}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={t('password')}
             autoComplete="true"
             {...register('password')}
           />
@@ -99,10 +102,10 @@ function SignUp() {
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formConfirmPassword">
-          <Form.Label>Password Confirmation</Form.Label>
+          <Form.Label>{t('passwordConfirmation')}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Confirm Password"
+            placeholder={t('passwordConfirmationTwo')}
             autoComplete="true"
             {...register('passwordConfirmation')}
           />
@@ -112,7 +115,7 @@ function SignUp() {
               : error && error.message}
           </Form.Text>
         </Form.Group>
-        <Button type="submit">Create user</Button>
+        <Button type="submit">{t('createUser')}</Button>
       </Form>
     </Container>
   )

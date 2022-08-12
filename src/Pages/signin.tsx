@@ -10,6 +10,7 @@ import { getId, getUser, signin } from '../redux/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { useTranslation } from 'react-i18next'
 
 type Inputs = {
   email: string
@@ -17,6 +18,8 @@ type Inputs = {
 }
 
 function SignIn() {
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -24,11 +27,11 @@ function SignIn() {
   const [error, setError] = React.useState<any>(null)
 
   const schema = yup.object().shape({
-    email: yup.string().email().required('Email is required'),
+    email: yup.string().email().required(t('emailRequired')),
     password: yup
       .string()
-      .min(6, 'At least 6 characteres')
-      .required('Password is required'),
+      .min(6, t('minimumCharacteres'))
+      .required(t('passwordRequired')),
   })
 
   const {
@@ -66,12 +69,12 @@ function SignIn() {
         style={{ maxWidth: '400px' }}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1>Login</h1>
+        <h1>{t('login')}</h1>
         <Form.Group className="mb-3" controlId="formLoginEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>{t('emailAddress')}</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder={t('enterEmail')}
             {...register('email')}
           />
           <Form.Text className="text-muted">
@@ -79,10 +82,10 @@ function SignIn() {
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formLoginPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>{t('password')}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={t('password')}
             autoComplete="true"
             {...register('password')}
             onFocus={() => setError(null)}
@@ -93,7 +96,7 @@ function SignIn() {
               : error && error.message}
           </Form.Text>
         </Form.Group>
-        <Button type="submit">Login</Button>
+        <Button type="submit">{t('submit')}</Button>
       </Form>
     </Container>
   )

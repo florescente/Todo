@@ -1,10 +1,13 @@
 import Container from 'react-bootstrap/esm/Container'
 import Nav from 'react-bootstrap/esm/Nav'
 import Navbar from 'react-bootstrap/esm/Navbar'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Account from './account'
 
 function NavBar() {
+  const { t } = useTranslation()
+
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
@@ -13,7 +16,7 @@ function NavBar() {
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link to="/" as={Link}>
-            Home
+            {t('home')}
           </Nav.Link>
         </Nav>
         <Account />
