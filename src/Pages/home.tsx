@@ -15,6 +15,8 @@ import db from '../firebase-config'
 import { readTask, createTask, deleteTask } from '../redux/taskSlice'
 import { BsCheck2Square, BsTrash } from 'react-icons/bs'
 import { getLoadTasks } from '../redux/authSlice'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 interface TaskProps {
   checked?: boolean
@@ -75,7 +77,13 @@ function Home() {
 
   const tasks = useSelector((state: TasksProps) => state.task.tasks)
 
-  const { register, handleSubmit } = useForm<Inputs>()
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+  })
+
+  const { register, reset, handleSubmit } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  })
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
@@ -93,6 +101,7 @@ function Home() {
     } catch (err) {
       console.log(err)
     }
+    reset()
   }
 
   if (loadingTasks) {
@@ -112,10 +121,7 @@ function Home() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Form.Group controlId="formCreateName">
-          <Form.Control
-            placeholder="Task Name"
-            {...register('name', { required: true })}
-          />
+          <Form.Control placeholder="Task Name" {...register('name')} />
         </Form.Group>
         <Button type="submit">New Task</Button>
       </Form>
@@ -143,7 +149,7 @@ function Home() {
                   />
                 </td>
                 <td className="align-middle">{task.name}</td>
-                <td>
+                <td className="text-center">
                   <Button
                     type="button"
                     size="sm"

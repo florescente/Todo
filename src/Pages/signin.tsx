@@ -8,6 +8,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getId, getUser, signin } from '../redux/authSlice'
 import { useNavigate } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 type Inputs = {
   email: string
@@ -21,7 +23,22 @@ function SignIn() {
 
   const [error, setError] = React.useState<any>(null)
 
-  const { register, handleSubmit } = useForm<Inputs>()
+  const schema = yup.object().shape({
+    email: yup.string().email().required('Email is required'),
+    password: yup
+      .string()
+      .min(6, 'At least 6 characteres')
+      .required('Password is required'),
+  })
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  })
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
@@ -35,11 +52,10 @@ function SignIn() {
       dispatch(getUser(data.email))
       navigate('/')
     } catch (err) {
-      console.log(err)
       setError(err)
     }
+    reset()
   }
-
   return (
     <Container
       className="d-flex flex-column align-items-center justify-content-center"
@@ -56,17 +72,26 @@ function SignIn() {
           <Form.Control
             type="email"
             placeholder="Enter email"
-            {...register('email', { required: true })}
+            {...register('email')}
           />
+          <Form.Text className="text-muted">
+            {errors && errors.email?.message}
+          </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formLoginPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
-            {...register('password', { required: true })}
+            autoComplete="true"
+            {...register('password')}
+            onFocus={() => setError(null)}
           />
-          <Form.Text className="text-muted">{error && error.message}</Form.Text>
+          <Form.Text className="text-muted">
+            {errors && errors.password
+              ? errors.password?.message
+              : error && error.message}
+          </Form.Text>
         </Form.Group>
         <Button type="submit">Login</Button>
       </Form>
