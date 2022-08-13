@@ -18,6 +18,7 @@ import { getLoadTasks } from '../redux/authSlice'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
+import { useTransition, animated } from '@react-spring/web'
 
 interface TaskProps {
   checked?: boolean
@@ -107,6 +108,12 @@ function Home() {
     reset()
   }
 
+  const transitions = useTransition(tasks, {
+    from: { opacity: 1, x: -100 },
+    enter: { opacity: 1, x: 0 },
+    trail: 300,
+  })
+
   if (loadingTasks) {
     return (
       <div
@@ -142,27 +149,27 @@ function Home() {
             </tr>
           </thead>
           <tbody className="table-group-divider">
-            {tasks?.map((task: TaskProps) => (
-              <tr key={task.id}>
+            {transitions((props, item) => (
+              <animated.tr key={item.id} style={props}>
                 <td>
                   <Form.Check
                     type="checkbox"
-                    defaultChecked={task.checked}
-                    onChange={(e) => updateTasks(task.id, e.target.checked)}
+                    defaultChecked={item.checked}
+                    onChange={(e) => updateTasks(item.id, e.target.checked)}
                   />
                 </td>
-                <td className="align-middle">{task.name}</td>
+                <td className="align-middle">{item.name}</td>
                 <td className="text-center">
                   <Button
                     type="button"
                     size="sm"
                     variant="outline-danger"
-                    onClick={() => deleteTasks(task.id)}
+                    onClick={() => deleteTasks(item.id)}
                   >
                     <BsTrash />
                   </Button>
                 </td>
-              </tr>
+              </animated.tr>
             ))}
           </tbody>
         </Table>
