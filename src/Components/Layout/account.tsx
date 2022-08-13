@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { auth } from '../../firebase/firebase-config'
 import { getLoadTasks, signin } from '../../redux/authSlice'
+import derivename from '../../helpers/derivename'
 
 interface User {
   auth: {
     currentUser: boolean
-    email: string | null | undefined
+    email: string
   }
 }
 
@@ -31,7 +32,7 @@ function Account() {
   if (user) {
     return (
       <Nav className="justify-content-end">
-        <Nav.Link disabled>{email}</Nav.Link>
+        <Nav.Link disabled>{derivename(email)}</Nav.Link>
         <Button type="button" onClick={logout}>
           {t('signout')}
         </Button>
