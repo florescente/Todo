@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase-config'
+import { auth } from '../firebase/firebase-config'
 import Container from 'react-bootstrap/esm/Container'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'

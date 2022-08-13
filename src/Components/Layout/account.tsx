@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/esm/Nav'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { auth } from '../../firebase-config'
+import { auth } from '../../firebase/firebase-config'
 import { getLoadTasks, signin } from '../../redux/authSlice'
 
 interface User {
