@@ -2,9 +2,30 @@
 
 ![Banner](/public/Todo.png?raw=true)
 
-A simple to-do app with firebase, includes simple crud operations and authentication.
+A `Todo App` with firebase + redux/toolkit, it includes simple crud operations and authentication.
 
-env.local
+## Installation
+
+```sh
+git clone git@github.com:florescente/Todo.git
+npm install
+```
+
+## Usage
+
+1. Create a Firebase Free Account
+2. Set a Firebase Project
+3. Use Firestore Database
+4. Use Authentification
+5. Get Firebase Config Info
+6. Set the environment variables
+7. run
+
+```sh
+npm run dev
+```
+
+## Environment Variables
 
 ```bash
 VITE_FIREBASE_API_KEY
@@ -16,6 +37,7 @@ VITE_FIREBASE_APP_ID
 VITE_FIREBASE_MEASUREMENT_ID
 ```
 
-Dumb Mistakes:
+## Meta
 
-I forgot to put a dot before env in .env.local, it makes some var don't work...
+Created By Florescente:
+[github.com/florescente](https://github.com/florescente)
