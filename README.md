@@ -1,8 +1,23 @@
 # Todo App
 
+<div align="center">
+
+[Features](#features) •
+[Installation](#installation) •
+[Usage](#usage) •
+[Environment Variables](#environment-variables)
+
 ![Banner](/public/Todo.png?raw=true)
 
 A `Todo App` with firebase + redux/toolkit, it includes simple crud operations and authentication.
+
+</div>
+
+## Features
+
+- feature _1_
+- feature **2**
+- feature **_3_**
 
 ## Installation
 
