@@ -1,3 +1,9 @@
+# Todo App
+
+![Banner](/public/Todo.png?raw=true)
+
+A simple to-do app with firebase, includes simple crud operations and authentication.
+
 env.local
 
 ```bash
