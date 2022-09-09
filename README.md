@@ -22,8 +22,17 @@ A `Todo App` with firebase + redux/toolkit, it includes simple crud operations a
 ## Installation
 
 ```sh
-git clone git@github.com:florescente/Todo.git
-npm install
+# Clone this repository
+$ git clone git@github.com:florescente/Todo.git
+
+# Go into the repository
+$ cd Todo
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm run dev
 ```
 
 ## Usage
