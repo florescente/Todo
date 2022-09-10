@@ -2,12 +2,15 @@
 
 <div align="center">
 
+![Banner](/public/Todo.png?raw=true)
+
 [Features](#features) •
 [Installation](#installation) •
 [Usage](#usage) •
 [Environment Variables](#environment-variables)
 
-![Banner](/public/Todo.png?raw=true)
+![CRUD](/public/CRUD.gif)
+![AUTH](/public/Authentification.gif)
 
 A `Todo App` with firebase + redux/toolkit, it includes simple crud operations and authentication.
 
