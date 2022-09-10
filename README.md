@@ -15,9 +15,13 @@ A `Todo App` with firebase + redux/toolkit, it includes simple crud operations a
 
 ## Features
 
-- feature _1_
-- feature **2**
-- feature **_3_**
+- Create, Read, Update and Delete Tasks
+- Authentification and Authorization with _firebase_
+- Global State Manager with _redux-toolkit_
+- Form Validation with _yup_ and _react-hook-form_
+- Internationalization with _react-i18next_
+- Beautiful UI with _react-bootstrap_
+- Beautiful Animations with _react-spring_
 
 ## Installation
 
