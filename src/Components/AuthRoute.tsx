@@ -1,6 +1,6 @@
-import Spinner from 'react-bootstrap/esm/Spinner'
 import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
+import Loading from './Loading'
 
 interface User {
   auth: {
@@ -14,16 +14,7 @@ function AuthRoute() {
   const user = useSelector((state: User) => state.auth.currentUser)
   const loading = useSelector((state: User) => state.auth.loading)
 
-  if (loading) {
-    return (
-      <div
-        className="container d-flex justify-content-center align-items-center"
-        style={{ height: 'calc(100vh - 56px)' }}
-      >
-        <Spinner animation="border" variant="primary" />
-      </div>
-    )
-  }
+  loading && <Loading />
 
   return user ? <Navigate to="/" /> : <Outlet />
 }

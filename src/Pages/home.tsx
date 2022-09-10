@@ -7,7 +7,7 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import React from 'react'
-import { Button, Form, Spinner } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import Table from 'react-bootstrap/esm/Table'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +19,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
 import { useTransition, animated } from '@react-spring/web'
+import Loading from '../Components/Loading'
 
 interface TaskProps {
   checked?: boolean
@@ -114,16 +115,8 @@ function Home() {
     trail: 300,
   })
 
-  if (loadingTasks) {
-    return (
-      <div
-        className="container d-flex justify-content-center align-items-center"
-        style={{ height: 'calc(100vh - 56px)' }}
-      >
-        <Spinner animation="border" variant="primary" />
-      </div>
-    )
-  }
+  loadingTasks && <Loading />
+
   return (
     <div className="container">
       <Form
