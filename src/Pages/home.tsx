@@ -115,7 +115,9 @@ function Home() {
     trail: 300,
   })
 
-  loadingTasks && <Loading />
+  if (loadingTasks) {
+    return <Loading />
+  }
 
   return (
     <div className="container">

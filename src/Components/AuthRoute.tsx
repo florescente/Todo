@@ -14,7 +14,9 @@ function AuthRoute() {
   const user = useSelector((state: User) => state.auth.currentUser)
   const loading = useSelector((state: User) => state.auth.loading)
 
-  loading && <Loading />
+  if (loading) {
+    return <Loading />
+  }
 
   return user ? <Navigate to="/" /> : <Outlet />
 }
