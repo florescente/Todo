@@ -18,6 +18,8 @@ function AuthRoute() {
     return <Loading />
   }
 
+  console.log(user)
+
   return user ? <Navigate to="/" /> : <Outlet />
 }
 

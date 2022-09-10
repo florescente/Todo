@@ -72,7 +72,8 @@ VITE_FIREBASE_MEASUREMENT_ID
 
 ## Bug
 
-Directly acessing(or reloading) the signin or signup page gives an 404 error
+- Directly acessing(or reloading) the signin or signup page gives an 404 error
+  - The error does not occur in development
 
 ## Meta
 
