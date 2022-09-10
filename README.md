@@ -70,6 +70,10 @@ VITE_FIREBASE_APP_ID
 VITE_FIREBASE_MEASUREMENT_ID
 ```
 
+## Bug
+
+Directly acessing(or reloading) the signin or signup page gives an 404 error
+
 ## Meta
 
 Created By Florescente:
